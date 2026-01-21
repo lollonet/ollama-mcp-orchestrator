@@ -1,0 +1,101 @@
+# BassCodeBase Quality Control Configuration
+# Auto-generated from interview (Q38, Q49, Q91, Q92)
+
+project:
+  name: ollama-mcp-orchestrator
+  language: python        # From Q38: Backend Stack
+  package_manager: uv     # From Q38
+  ci_platform: github     # From Q49: CI/CD Platform
+
+paths:
+  source: ["src"]
+  tests: ["tests"]
+  docs: ["docs"]
+
+quality:
+  # Code coverage gates (from Q91: Unit Test Coverage = 80%)
+  coverage:
+    enforce: false  # Start in observe mode
+    line: 80        # From Q91: 80% line coverage target
+    branch: 70      # Q91 - 10% (standard practice)
+
+  # Complexity gates (standard Python thresholds)
+  complexity:
+    enforce: true
+    mccabe:
+      warn: 8       # Function cyclomatic complexity warning
+      fail: 12      # Function cyclomatic complexity failure
+    func_loc:
+      warn: 25      # Function lines of code warning
+      fail: 30      # Function lines of code failure
+
+# Traceability configuration
+traceability:
+  require_req_tags: true
+  allowed_patterns:
+    - "REQ-\\d{3}"      # REQ-001, REQ-002, etc.
+    - "WBS-\\d{3}"      # WBS-001, WBS-002, etc.
+    - "INIT-000"        # Bootstrap commit
+
+# Documentation requirements
+docs:
+  required:
+    - README.md
+    - CHANGELOG.md
+    - docs/requirements/REQ-INDEX.md
+  staleness_days: 30
+  check_internal_links: true
+
+# Linting & Formatting
+lint:
+  tool: ruff
+  config: pyproject.toml
+
+format:
+  tool: ruff
+  check_only: false  # Auto-format on pre-commit
+
+# Type checking
+typecheck:
+  tool: basedpyright
+  strict_mode: true
+  config: pyproject.toml
+
+# Testing framework
+test:
+  framework: pytest
+  coverage_tool: pytest-cov
+  required_markers:
+    - unit
+    - integration
+    - security
+
+# Pre-commit hooks
+hooks:
+  enabled: true
+  stages:
+    - pre-commit: [ruff-check, ruff-format, basedpyright]
+    - commit-msg: [req-tag-check]
+
+# CI/CD configuration
+ci:
+  platform: github
+  workflows:
+    - name: tests.yml
+      triggers: [push, pull_request]
+      jobs: [lint, format, typecheck, test]
+    - name: security.yml
+      triggers: [push]
+      jobs: [gitleaks, bandit, safety]
+    - name: release.yml
+      triggers: [tag]
+      jobs: [build, publish-pypi]
+
+# Quality rigor level (mvp | standard | strict)
+rigor: standard
+
+# Notes
+# - Coverage gates start in observe mode (enforce: false)
+# - Complexity gates enforced from day 1 (enforce: true)
+# - Traceability requires REQ-### tags in commits
+# - CI runs on GitHub Actions (from Q49 answer)
