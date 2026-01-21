@@ -1,32 +1,23 @@
 # Ollama-MCP Filesystem Orchestrator
 
-> Production-grade Python orchestrator enabling local Ollama models to safely access the filesystem through the Model Context Protocol (MCP).
+Python orchestrator that lets local Ollama models safely access the filesystem through the Model Context Protocol (MCP). Features an autonomous agent loop with planning/execution/reflection, security sandbox, and audit logging.
 
-```
-   ___  ____                           __  __  ___________
-  / _ \/ / /__ ___ _  ___ _   ____ _  /  |/  // ___/ __/ /
- / // / / / _ `/  ' \/ _ `/  /___/  / /|_/ // /___/ _// /__
-/____/_/_/\_,_/_/_/_/\_,_/         /_/  /_/ \___/_/ /____/
-
-   Filesystem Orchestrator - Local LLM + MCP Protocol
-```
-
-[![Tests](https://github.com/USER/ollama-mcp-orchestrator/actions/workflows/tests.yml/badge.svg)](https://github.com/USER/ollama-mcp-orchestrator/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/gh/USER/ollama-mcp-orchestrator/branch/main/graph/badge.svg)](https://codecov.io/gh/USER/ollama-mcp-orchestrator)
+<!-- Badges (will be enabled after first release)
+[![Tests](https://github.com/lollonet/ollama-mcp-orchestrator/actions/workflows/tests.yml/badge.svg)](https://github.com/lollonet/ollama-mcp-orchestrator/actions/workflows/tests.yml)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+-->
 
-## Features
+## What it does
 
-- 🤖 **Autonomous Agent Loop**: ReAct pattern (plan → execute → observe → reflect)
-- 🔒 **Security First**: Path sandboxing, traversal prevention, confirmation prompts
-- 📁 **9 Filesystem Tools**: read, write, list, create_dir, delete, move, copy, search, file_info
-- 🔍 **Full Observability**: Structured logging, JSONL audit trail, execution metrics
-- ⚡ **Fast**: < 100ms tool execution latency (p95)
-- 🎯 **Type-Safe**: Pydantic v2 models, basedpyright strict mode
-- 🧪 **Tested**: > 80% code coverage, security tests included
+- **Agent loop**: Automatically plans, executes, and reflects on filesystem tasks (ReAct pattern)
+- **Security sandbox**: All paths validated against allowed directories, prevents traversal attacks
+- **9 filesystem tools**: read, write, list, create_dir, delete, move, copy, search, file_info
+- **Audit logging**: JSONL trail of all filesystem modifications
+- **Type-safe**: Pydantic v2 models, basedpyright strict mode
+- **Tested**: Comprehensive security and integration tests
 
-## Quick Start (< 5 minutes)
+## Quick Start
 
 ### Prerequisites
 
@@ -307,14 +298,8 @@ Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) first.
 
 MIT © 2026 Claudio
 
-## Acknowledgments
-
-- [Ollama](https://ollama.com/) - Local LLM runtime
-- [Model Context Protocol](https://modelcontextprotocol.io/) - MCP specification
-- [BassCodeBase](https://github.com/lollonet/BassCodeBase) - Quality standards framework
-
 ---
 
-**Status**: 🚧 In Development (v0.1.0 Alpha)
+**Status**: In Development (v0.1.0)
 
-Report issues: https://github.com/USER/ollama-mcp-orchestrator/issues
+Report issues: https://github.com/lollonet/ollama-mcp-orchestrator/issues

@@ -1,143 +1,76 @@
-# Vision & Strategy
+# Vision
 
-## Project Overview
+## What this project does
 
-**Ollama-MCP Filesystem Orchestrator** is a production-grade Python orchestrator that enables local Ollama models to securely access the filesystem through the Model Context Protocol (MCP). It acts as an intelligent bridge between Ollama and MCP tools, managing the complete tool calling lifecycle with planning, execution, and reflection.
+Python orchestrator that connects local Ollama models to the filesystem through the Model Context Protocol (MCP). Manages the complete tool calling lifecycle: planning, execution, reflection.
 
-## Elevator Pitch
+## Why it exists
 
-A Python orchestrator that lets local LLMs (Qwen, Llama) safely interact with your filesystem through MCP, featuring agent loop planning, security sandboxing, and comprehensive audit logging. Think "ReAct agent for file operations" with production-grade safety.
+**Problem**: Ollama models can't access files directly. Manually calling MCP tools is tedious and risky.
 
-## Target Users
+**Solution**: Autonomous agent loop that plans filesystem tasks, executes tools safely, and tracks all changes.
 
-### Primary Persona: AI Developer (Claudio)
-- **Profile**: Python developer working with local LLMs on Mac Studio M2 Ultra + Debian laptop
-- **Pain Points**:
-  - Ollama models can't directly access filesystem
-  - Manual tool calling is tedious and error-prone
-  - Need security sandbox to prevent accidental damage
-  - Require audit trail for debugging
-- **Goals**:
-  - Automate file operations via natural language
-  - Maintain full control over allowed paths
-  - Track all filesystem modifications
-  - Use offline (no API costs)
+## Who uses it
 
-### Secondary Persona: DevOps Engineer
-- **Profile**: Uses LLMs for infrastructure automation
-- **Pain Points**: Need safe filesystem access for log analysis, config management
-- **Goals**: Automated file search, content extraction, safe modifications
+Python developers working with local LLMs who need:
+- Automated file operations via natural language
+- Security sandbox to prevent accidents
+- Audit trail for debugging
+- Offline operation (no API costs)
 
-## Value Proposition
+## What makes it different
 
-**Why choose this over direct MCP usage?**
-- **Agent Loop**: Automatic planning → execution → reflection (ReAct pattern)
-- **Security First**: Path sandboxing, traversal prevention, destructive operation confirmation
-- **Full Observability**: Structured logging, JSONL audit trail, execution metrics
-- **Production Ready**: Type-safe (Pydantic v2), tested (>80% coverage), documented
+- **Agent loop**: Automatic planning/execution/reflection (not just tool calling)
+- **Security focused**: Path sandboxing, confirmation prompts, audit logging
+- **Type-safe**: Pydantic v2 validation, basedpyright strict mode
+- **Local-first**: Works offline, no cloud dependencies
 
-## Business Model
+## Success criteria
 
-**Open Source (MIT License)**
-- Free for all use cases
-- Community-driven development
-- GitHub-based collaboration
-
-## Success Metrics
-
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Tool Call Success Rate | > 95% | Successful executions / total calls |
-| Average Latency | < 100ms | Tool execution time (excluding LLM) |
-| Security Incidents | 0 | Path traversal attempts blocked |
-| User Adoption | 100+ GitHub stars | 6 months post-release |
-| Test Coverage | > 80% | line coverage |
+- Tool calls succeed > 95% of the time
+- Tool execution < 100ms (excluding LLM inference)
+- No successful path traversal attacks
+- Test coverage > 80%
 
 ## MVP Scope (v0.1.0)
 
-**Must Have**:
-- ✅ 9 filesystem tools (read, write, list, create_dir, delete, move, copy, search, file_info)
-- ✅ Agent loop with planning/execution/reflection
-- ✅ Typer CLI (chat mode, ask mode, config)
-- ✅ Security sandbox (ALLOWED_PATHS validation)
-- ✅ Audit logging (JSONL format)
-- ✅ Ollama integration (Qwen2.5:32b, Llama3.3:70b)
+Core features:
+- 9 filesystem tools (read, write, list, create_dir, delete, move, copy, search, file_info)
+- Agent loop with ReAct pattern
+- Typer CLI (chat and ask modes)
+- Security sandbox with path validation
+- JSONL audit logging
+- Ollama integration (tested with Qwen2.5:32b, Llama3.3:70b)
 
-**Nice to Have** (v0.2.0+):
-- Streaming responses from Ollama
-- LRU cache for tool results
-- Prometheus metrics export
+Later versions:
+- Streaming responses
+- Tool result caching
 - Multi-conversation support
 
-## Future Vision
+## Technical constraints
 
-### 1 Year
-- **Multi-Model Support**: Support for OpenAI, Anthropic (via MCP)
-- **Advanced Tools**: Git operations, Docker interaction, database queries
-- **Web UI**: Simple web interface for non-CLI users
-- **Plugin System**: Custom tool registration
-
-### 3 Years
-- **Enterprise Features**: Team collaboration, role-based access
-- **Cloud Deployment**: SaaS offering for teams
-- **Ecosystem**: Marketplace for community tools
-
-## Constraints
-
-### Technical
 - **OS**: macOS (Apple Silicon) + Debian Linux
-- **Python**: 3.12+ (for modern type hints)
-- **Package Manager**: uv (fast, reliable)
-- **Models**: Ollama-compatible only (local deployment)
+- **Python**: 3.12+ (modern type hints)
+- **Package Manager**: uv
+- **Models**: Ollama-compatible only
 
-### Resource
-- **Budget**: $0 (open source, local compute)
-- **Timeline**: MVP in 2-3 weeks
-- **Team**: Solo developer (Claudio)
+## Scope limits
 
-### Scope
-- **No cloud deployment**: Local-first tool
-- **No GUI**: CLI only for MVP
-- **English only**: No i18n for MVP
+- CLI only for v0.1.0 (no GUI)
+- Local-first (no cloud deployment)
+- Single-user (no authentication/multi-tenancy)
 
-## Competitors
+## Risks
 
-| Competitor | Strengths | Weaknesses |
-|------------|-----------|------------|
-| **Direct MCP** | Official protocol | No agent loop, manual tool calling |
-| **LangChain Agents** | Rich ecosystem | Heavyweight, cloud-focused |
-| **AutoGPT** | Full autonomy | No MCP support, requires API keys |
-| **Ollama-Python** | Direct integration | No tool calling orchestration |
+- **Path traversal**: Mitigated with comprehensive validation tests
+- **Model hallucination**: Mitigated with strict JSON parsing
+- **Performance issues**: Mitigated with async I/O and timeouts
 
-## Unique Differentiator
+## v0.1.0 Release criteria
 
-**Why Ollama-MCP Orchestrator wins**:
-1. **Local-First**: 100% offline, no API costs, full privacy
-2. **MCP Native**: Uses official protocol, future-proof
-3. **Security Focused**: Sandbox, audit, confirmation for destructive ops
-4. **Production Grade**: Type-safe, tested, logged, documented
-5. **Agent Loop**: Automatic planning/reflection (not just tool execution)
-
-## Risks & Mitigation
-
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Path traversal exploit | HIGH | LOW | Comprehensive path validation tests |
-| Ollama model hallucination | MEDIUM | MEDIUM | Strict JSON parsing, fallback prompts |
-| Performance degradation | LOW | LOW | Async I/O, timeout limits |
-| User adoption | MEDIUM | MEDIUM | Clear docs, working examples |
-
-## Definition of Success
-
-**v0.1.0 Release Criteria**:
-- ✅ All 9 tools implemented and tested
-- ✅ Agent loop completes 3-step tasks (read → analyze → write)
-- ✅ Security tests pass (no path traversal)
-- ✅ Documentation complete (README + examples)
-- ✅ Test coverage > 80%
-- ✅ Successfully runs on Mac + Debian
-
-**Community Success**:
-- 100+ GitHub stars within 6 months
-- 10+ external contributors
-- Featured in Awesome-Ollama list
+- All 9 tools implemented and tested
+- Agent loop completes multi-step tasks
+- Security tests pass
+- Documentation complete
+- Test coverage > 80%
+- Works on macOS and Debian
