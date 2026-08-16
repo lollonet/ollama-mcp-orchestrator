@@ -67,7 +67,10 @@ capace sullo stesso modello locale.
 
 **Per mettere un guinzaglio agli agenti che parlano MCP**:
 [airlock](https://github.com/airlock-dev/airlock), con un preset sandbox e le
-scritture in approvazione. Configurazione di partenza commentata in
+scritture in approvazione. Attenzione al perimetro: un gateway MCP vede solo il
+traffico MCP, quindi i tool nativi di un client — in Claude Code `Read`,
+`Write`, `Edit`, `Bash`, e lo stesso vale per `ollama launch claude` — restano
+fuori e vanno governati con i permessi nativi del client. Configurazione di partenza commentata in
 [`examples/airlock.recommended.yaml`](examples/airlock.recommended.yaml).
 Attenzione al limite noto sul matching dei path documentato lì dentro: il
 confine vero lo devono dare il server filesystem (che riceve le sue directory

@@ -10,6 +10,20 @@
 #
 # ADATTARE PRIMA DELL'USO: i path sotto sono segnaposto.
 #
+# COSA QUESTA CONFIGURAZIONE NON COPRE
+# Un gateway MCP vede solo il traffico MCP. I tool nativi di un client — in
+# Claude Code: Read, Write, Edit, Bash — non passano da MCP e quindi non
+# transitano di qui. Vale identicamente per `ollama launch claude`, che avvia
+# Claude Code su un modello locale: stesso client, stessa superficie.
+# Per quei tool la difesa sono i permessi nativi del client (regole allow/ask/
+# deny nelle sue impostazioni). Questa configurazione protegge i server MCP
+# che aggiungi, non l'agente nel suo complesso.
+#
+# Esiste in airlock una modalità hook non documentata (`POST /hook`, abilitata
+# da `server.management_api.expose_hook_api`, con un normalizzatore che mappa
+# Bash/Edit/Read/Write di Claude Code) che coprirebbe anche i tool nativi.
+# Presente nel codice, assente dal README: da verificare prima di farci conto.
+#
 # Limite noto (spike del 2026-08-16, vedi docs/09-SPIKE-MCP-GUARDRAILS.md §4):
 # arg_policy fa matching glob senza normalizzare i path, quindi un `../` nella
 # richiesta può soddisfare una glob_allow. Le due difese qui sotto NON si
