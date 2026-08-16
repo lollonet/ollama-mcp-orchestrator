@@ -49,6 +49,10 @@ dmypy.json
 .pytype/
 
 # Project-specific
+node_modules/
+spike/**/.venv/
+spike/**/*.jsonl
+!spike/mcp-firewall/requests.jsonl
 *.log
 audit.jsonl
 .ollama-fs/

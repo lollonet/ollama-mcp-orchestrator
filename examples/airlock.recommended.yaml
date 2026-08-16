@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/airlock-dev/airlock/main/schema.json
+#
+# Configurazione airlock di partenza per un singolo sviluppatore che usa
+# agenti MCP locali (Claude Code, OpenCode, ollmcp) sui propri file.
+#
+#   npm install -g airlock-bot
+#   airlock --agent dev --config airlock.yaml
+#   airlock explain dev        # permessi effettivi
+#   airlock lint               # igiene della config
+#
+# ADATTARE PRIMA DELL'USO: i path sotto sono segnaposto.
+#
+# Limite noto (spike del 2026-08-16, vedi docs/09-SPIKE-MCP-GUARDRAILS.md §4):
+# arg_policy fa matching glob senza normalizzare i path, quindi un `../` nella
+# richiesta può soddisfare una glob_allow. Le due difese qui sotto NON si
+# appoggiano a quel matching:
+#   1. il server filesystem ufficiale riceve le sue directory consentite come
+#      argomento e le fa rispettare da sé (resolve + controllo symlink);
+#   2. il sandbox preset confina il processo a livello di sistema operativo.
+# La arg_policy resta come terzo strato, utile ma non sufficiente da solo.
+
+providers:
+  fs:
+    type: stdio
+    command: npx
+    args:
+      - '-y'
+      - '@modelcontextprotocol/server-filesystem'
+      - '/home/USER/projects'      # <-- confine primario: lo impone il server
+
+sandbox_presets:
+  project_only:
+    filesystem:
+      allow_read:
+        - '/home/USER/projects'
+      allow_write:
+        - '/home/USER/projects'
+        - '/tmp'
+      deny_read:                   # additivo: vale anche dentro le allow
+        - '~/.ssh'
+        - '~/.aws'
+        - '~/.config/gcloud'
+        - '~/.gnupg'
+        - '.env'
+    network:
+      allowed_domains: []          # nessuna rete in uscita dal server fs
+
+agents:
+  dev:
+    sandbox: project_only
+    allow:
+      - 'fs/read_text_file'
+      - 'fs/read_multiple_files'
+      - 'fs/list_directory'
+      - 'fs/directory_tree'
+      - 'fs/search_files'
+      - 'fs/get_file_info'
+    ask:                           # scritture e spostamenti: sempre a mano
+      - 'fs/write_file'
+      - 'fs/edit_file'
+      - 'fs/create_directory'
+      - 'fs/move_file'
+    # tutto ciò che non è elencato è negato per default (default-deny)
+    arg_policy:
+      fs/read_text_file:
+        path:
+          - glob_allow:
+              - '/home/USER/projects/*'
+            label: 'progetti'
+
+approvals:
+  provider:
+    type: dashboard              # oppure tui / telegram / slack
+    port: 4112
+  timeout_ms: 300000             # allo scadere: negato, non permesso
+  batch_window_ms: 2000
+
+audit:
+  db_path: '/home/USER/.airlock/audit.db'
+  retention_days: 90
+  redact_fields:
+    - 'content'                  # non archiviare i contenuti dei file scritti

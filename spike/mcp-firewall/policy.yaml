@@ -1,0 +1,26 @@
+version: 1
+defaultAction: deny
+
+rules:
+  - name: block-ssh-keys
+    tool: "*"
+    match:
+      arguments:
+        path: "**/.ssh/**"
+    action: deny
+    message: "SSH key access blocked"
+
+  - name: allow-project-reads
+    tool: "read_file"
+    match:
+      arguments:
+        path: "/home/user/projects/*"
+    action: allow
+
+  - name: approve-writes
+    tool: "write_file"
+    action: prompt
+
+audit:
+  enabled: true
+  path: audit.jsonl
