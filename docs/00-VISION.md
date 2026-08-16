@@ -1,5 +1,16 @@
 # Vision & Strategy
 
+> **Documento storico (gennaio 2026), superato il 2026-08-16.**
+> La visione qui descritta non è più valida: ogni componente prevista è oggi
+> disponibile come software installabile in un comando. La decisione di
+> chiusura, con le alternative valutate e i criteri per riaprirla, è in
+> [ARC-002](architecture/ARC-002.closure-decision.md); le misure che l'hanno
+> motivata in [09-SPIKE-MCP-GUARDRAILS.md](09-SPIKE-MCP-GUARDRAILS.md).
+>
+> Il paragrafo *Competitors* qui sotto è istruttivo per come ha sbagliato:
+> elencava LangChain e AutoGPT, e non contemplava che il concorrente vero
+> sarebbe stato Ollama stesso.
+
 ## Project Overview
 
 **Ollama-MCP Filesystem Orchestrator** is a production-grade Python orchestrator that enables local Ollama models to securely access the filesystem through the Model Context Protocol (MCP). It acts as an intelligent bridge between Ollama and MCP tools, managing the complete tool calling lifecycle with planning, execution, and reflection.

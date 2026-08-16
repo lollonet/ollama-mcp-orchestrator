@@ -1,5 +1,10 @@
 # Infrastructure & Operations
 
+> **Documento storico (gennaio 2026), superato il 2026-08-16.** Il progetto
+> non viene implementato: vedi [ARC-002](architecture/ARC-002.closure-decision.md)
+> e lo [spike sui guardrail MCP](09-SPIKE-MCP-GUARDRAILS.md).
+
+
 ## Deployment Model
 
 **Local-First CLI Tool** (no cloud deployment for v0.1.0)

@@ -1,5 +1,9 @@
 # Requirements Index
 
+> **Tutti i requisiti sono superati (2026-08-16).** Il progetto non viene
+> implementato: vedi [ARC-002](../architecture/ARC-002.closure-decision.md)
+> e lo [spike sui guardrail MCP](../09-SPIKE-MCP-GUARDRAILS.md).
+
 ## Overview
 
 This document tracks all functional and non-functional requirements for the Ollama-MCP Filesystem Orchestrator.
@@ -8,15 +12,15 @@ This document tracks all functional and non-functional requirements for the Olla
 
 | ID | Domain | Title | Status | Priority |
 |----|--------|-------|--------|----------|
-| [REQ-001](REQ-001.md) | filesystem-tools | Filesystem Tools | draft | P0 |
-| [REQ-002](REQ-002.md) | agent-loop | Agent Loop (ReAct Pattern) | draft | P0 |
-| [REQ-003](REQ-003.md) | user-interface | CLI Interface | draft | P0 |
-| [REQ-004](REQ-004.md) | security | Security Sandbox | draft | P0 |
-| [REQ-005](REQ-005.md) | logging-audit | Audit Logging | draft | P1 |
-| [REQ-006](REQ-006.md) | integration | Ollama Integration | draft | P0 |
-| [REQ-007](REQ-007.md) | state-management | Conversation Management | draft | P2 |
-| [REQ-008](REQ-008.md) | error-handling | Error Handling | draft | P1 |
-| [REQ-009](REQ-009.md) | configuration | Configuration Management | draft | P2 |
+| [REQ-001](REQ-001.md) | filesystem-tools | Filesystem Tools | superseded | P0 |
+| [REQ-002](REQ-002.md) | agent-loop | Agent Loop (ReAct Pattern) | superseded | P0 |
+| [REQ-003](REQ-003.md) | user-interface | CLI Interface | superseded | P0 |
+| [REQ-004](REQ-004.md) | security | Security Sandbox | superseded | P0 |
+| [REQ-005](REQ-005.md) | logging-audit | Audit Logging | superseded | P1 |
+| [REQ-006](REQ-006.md) | integration | Ollama Integration | superseded | P0 |
+| [REQ-007](REQ-007.md) | state-management | Conversation Management | superseded | P2 |
+| [REQ-008](REQ-008.md) | error-handling | Error Handling | superseded | P1 |
+| [REQ-009](REQ-009.md) | configuration | Configuration Management | superseded | P2 |
 
 ## Requirements by Domain
 
@@ -69,14 +73,14 @@ This document tracks all functional and non-functional requirements for the Olla
 
 ## Requirements by Status
 
-### draft (9)
-All requirements currently in draft status pending implementation and validation.
+### superseded (9)
+Tutti i requisiti sono stati superati dall'evoluzione dell'ecosistema fra
+gennaio e agosto 2026. Nessuno è stato implementato. Le motivazioni per
+ciascuna area sono in [ARC-002](../architecture/ARC-002.closure-decision.md).
 
 ### approved (0)
-No requirements approved yet.
 
 ### implemented (0)
-No requirements implemented yet.
 
 ## Traceability Matrix
 
@@ -104,9 +108,10 @@ No requirements implemented yet.
 | Date | Author | Change |
 |------|--------|--------|
 | 2026-01-21 | Claude | Initial requirements extracted from interview |
+| 2026-08-16 | Claudio | Tutti i requisiti passati a `superseded` (ARC-002) |
 
 ## Notes
 
-- All requirements currently in draft status
-- Requirements will be updated to approved status after stakeholder review
-- Implementation progress tracked via WBS tasks in 08-WBS.md
+- I requisiti restano leggibili come esempio di analisi tracciabile
+- REQ-004 (validazione dei path) prosegue come contributo upstream ad airlock:
+  è l'unico punto in cui i guardrail testati sbagliano entrambi
