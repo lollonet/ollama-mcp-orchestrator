@@ -1,12 +1,14 @@
 ---
 id: TECH-001
 title: Runtime Environment & Dependency Management
-status: draft
+status: superseded
 date: 2026-01-21
 authors: [Claudio]
 ---
 
 # TECH-001: Runtime Environment & Dependency Management
+
+> **Superato il 2026-08-16** — vedi [ARC-002](../architecture/ARC-002.closure-decision.md).
 
 ## Context
 

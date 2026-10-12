@@ -1,0 +1,27 @@
+providers:
+  fs:
+    type: stdio
+    command: node
+    args: ['mcp_server.mjs']
+
+agents:
+  dev:
+    allow:
+      - 'fs/read_file'
+    ask:
+      - 'fs/write_file'
+    arg_policy:
+      fs/read_file:
+        path:
+          - glob_allow: ['/home/user/projects/*']
+
+approvals:
+  provider:
+    type: dashboard
+    port: 4119
+  timeout_ms: 4000
+  batch_window_ms: 200
+
+audit:
+  db_path: ':memory:'
+  retention_days: 1

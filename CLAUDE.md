@@ -1,8 +1,26 @@
 # Project-Specific AI Instructions
 
-## Project Context
+## STOP — progetto chiuso (2026-08-16)
 
-**Ollama-MCP Filesystem Orchestrator** is a production-grade Python CLI tool that enables local Ollama LLMs to safely access the filesystem through the Model Context Protocol (MCP).
+**Questo progetto non viene implementato.** Non scrivere codice applicativo qui,
+non aprire le WBS, non implementare i REQ: sono tutti `superseded`. La decisione,
+le alternative valutate e i criteri per riaprirla sono in
+`docs/architecture/ARC-002.closure-decision.md`; le misure che l'hanno motivata
+in `docs/09-SPIKE-MCP-GUARDRAILS.md`.
+
+Se ti viene chiesto di lavorare su questo repo, il lavoro legittimo è: aggiornare
+l'analisi se l'ecosistema cambia, mantenere gli artefatti dello spike
+riproducibili, o preparare il contributo upstream ad airlock descritto nel README.
+Se ti viene chiesto di implementare l'orchestratore, segnala prima questa
+decisione e chiedi conferma: potrebbe essere una richiesta basata su una lettura
+vecchia del repo.
+
+## Project Context (storico)
+
+**Ollama-MCP Filesystem Orchestrator** doveva essere un CLI Python che permettesse
+a modelli Ollama locali di accedere al filesystem in sicurezza tramite MCP. Le
+convenzioni qui sotto descrivono come *sarebbe stato* costruito e restano valide
+come riferimento di metodo, non come istruzioni operative.
 
 ## Tech Stack
 

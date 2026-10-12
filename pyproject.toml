@@ -1,14 +1,14 @@
 [project]
 name = "ollama-mcp-orchestrator"
 version = "0.1.0"
-description = "Production-grade Python orchestrator enabling local Ollama models to safely access the filesystem through MCP"
+description = "Progetto chiuso nel 2026 senza implementazione: vedi README e docs/architecture/ARC-002.closure-decision.md"
 authors = [{name = "Claudio", email = "claudio@example.com"}]
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.12"
 keywords = ["ollama", "mcp", "llm", "filesystem", "agent", "react"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 7 - Inactive",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.12",
